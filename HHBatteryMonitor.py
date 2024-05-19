@@ -88,7 +88,7 @@ while True:
                 status = 100
         else:
             if status != 200:
-                changeicon("chargeing")
+                changeicon("charging")
             status = 200
         time.sleep(REFRESH_RATE)
     except ValueError:
