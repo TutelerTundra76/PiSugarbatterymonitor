@@ -27,14 +27,14 @@ def changeicon(percent):
         i = 0
         killid = 0
         print(iconState)
-      #  os.system(PNGVIEWPATH + "/pngview -b 0 -l 3000" + percent + " -x 650 -y 10 " + ICONPATH + "/battery" + percent + ".png &")#set icon
-      #  out = check_output("ps aux | grep pngview | awk '{ print $2 }'", shell=True) #this lists processes searches for one containing "pngview" then outputs the second columnwitch is the pid of the process
-       # nums = out.split('\n')#gets rid of new line
-        #for num in nums:#kill the process
-         #   i += 1
-          #  if i == 1:
-           #     killid = num
-            #    os.system("sudo kill " + killid)
+        os.system(PNGVIEWPATH + "/pngview -b 0 -l 3000" + percent + " -x 650 -y 10 " + ICONPATH + "/battery" + percent + ".png &")#set icon
+        out = check_output("ps aux | grep pngview | awk '{ print $2 }'", shell=True) #this lists processes searches for one containing "pngview" then outputs the second columnwitch is the pid of the process
+        nums = out.split('\n')#gets rid of new line
+        for num in nums:#kill the process
+            i += 1
+            if i == 1:
+                killid = num
+                os.system("sudo kill " + killid)
 
 
 def endProcess(signalnum=None, handler=None):
@@ -44,12 +44,12 @@ def endProcess(signalnum=None, handler=None):
 
 # Initial Setup
 
-#signal.signal(signal.SIGTERM, endProcess)
-#signal.signal(signal.SIGINT, endProcess)
+signal.signal(signal.SIGTERM, endProcess)
+signal.signal(signal.SIGINT, endProcess)
 
-# Begin Battery Monitoring
+ Begin Battery Monitoring
 
-#os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999 -x 650 -y 10 " + ICONPATH + "/blank.png &")
+os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999 -x 650 -y 10 " + ICONPATH + "/blank.png &")
 
 while True:
     try:
