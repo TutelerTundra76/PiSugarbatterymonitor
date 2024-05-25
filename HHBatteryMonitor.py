@@ -53,43 +53,34 @@ os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999 -x 650 -y 10 " + ICONPATH + "/b
 
 while True:
     try:
-        charging= os.popen('echo "battery_charging" | sudo nc -U -W 1 /tmp/pisugar-server.sock').read()
-        charging =charging.replace("battery_charging:","")
-        charging =charging.replace("\n","")
-        charging =charging.replace(" ","")
-        if charging!="true":
-            ret = os.popen('echo "battery" | sudo nc -U -W 1 /tmp/pisugar-server.sock').read()
-            ret =ret.replace("battery: ","")
-            ret =ret.replace("\n","")
-            if debug == 1:
-                print(float(ret))
-            if float(ret) <= 0:
-                if status != 0:
-                    status = 0
-            elif float(ret) < 25:
-                if status != 25:
-                    changeicon("25")
-                if warning != 1:
-                    if CLIPS == 1:
-                        os.system("/usr/bin/omxplayer --no-osd --layer 999999  " + ICONPATH + "/lowbattalert.mp4 --alpha 160")
-                    warning = 1
-                status = 25
-            elif float(ret) < 50:
-                if status != 50:
-                    changeicon("50")
-                status = 50
-            elif float(ret) < 75:
-                if status != 75:
-                    changeicon("75")
-                status = 75
-            else:
-                if status != 100:
-                    changeicon("100")
-                status = 100
+        ret = os.popen('echo "get battery" | sudo nc -U -W 1 /tmp/pisugar-server.sock').read()
+        ret =ret.replace("battery: ","")
+        ret =ret.replace("\n","")
+        if debug == 1:
+            print(float(ret))
+        if float(ret) <= 0:
+            if status != 0:
+                status = 0
+        elif float(ret) < 25:
+            if status != 25:
+                changeicon("25")
+            if warning != 1:
+                if CLIPS == 1:
+                    os.system("/usr/bin/omxplayer --no-osd --layer 999999  " + ICONPATH + "/lowbattalert.mp4 --alpha 160")
+                warning = 1
+            status = 25
+        elif float(ret) < 50:
+            if status != 50:
+                changeicon("50")
+            status = 50
+        elif float(ret) < 75:
+            if status != 75:
+                changeicon("75")
+            status = 75
         else:
-            if status != 200:
-                changeicon("charging")
-            status = 200
+            if status != 100:
+                changeicon("100")
+            status = 100
         time.sleep(REFRESH_RATE)
     except ValueError:
         time.sleep(REFRESH_RATE)
