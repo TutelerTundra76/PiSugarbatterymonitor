@@ -47,7 +47,7 @@ def endProcess(signalnum=None, handler=None):
 signal.signal(signal.SIGTERM, endProcess)
 signal.signal(signal.SIGINT, endProcess)
 
- Begin Battery Monitoring
+#Begin Battery Monitoring
 
 os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999 -x 650 -y 10 " + ICONPATH + "/blank.png &")
 
