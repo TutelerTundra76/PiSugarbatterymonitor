@@ -10,12 +10,12 @@ warning=0 #determines if the low battery warning is needed
 CLIPS = 1 #enables the low battery warning
 
 status = 0 #the curent battery %
-debug = 0  #deterimines if it should print dbug statments 
+debug = 0  # determines if it should print debug statements 
 iconState = ""
 PNGVIEWPATH = "/home/pi/pisugarbatterymonitor/Pngview/"
 ICONPATH = "/home/pi/pisugarbatterymonitor/icons"
 
-REFRESH_RATE = 1 #intervieral between each check
+REFRESH_RATE = 1 # interval between each check
 ret=""
 charging=""
 
@@ -29,11 +29,11 @@ def changeicon(percent):
         print(iconState)
         os.system(PNGVIEWPATH + "/pngview -b 0 -l 3000" + percent + " -x 650 -y 10 " + ICONPATH + "/battery" + percent + ".png &")#set icon
         out = check_output("ps aux | grep pngview | awk '{ print $2 }'", shell=True) #this lists processes searches for one containing "pngview" then outputs the second columnwitch is the pid of the process
-        nums = out.split('\n')#gets rid of new line
+        nums = out.split(b'\n')#gets rid of new line
         for num in nums:#kill the process
             i += 1
             if i == 1:
-                killid = num
+                killid = str(int(num))
                 os.system("sudo kill " + killid)
 
 
